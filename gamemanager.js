@@ -68,7 +68,7 @@ var start = function() {
   var explore = function() {
     //clears the game screen upon visit
     var clearUponVisit = function() {
-      add_output.innerHTML = "";
+      output("");
     }
     clearUponVisit();
   
