@@ -198,6 +198,24 @@ var start = function() {
       speech: "Rwarrr!"
     }
   ];
+
+  // <============ RANDOM LOOT ================>
+
+  loot = [{
+    id: 0,
+    name: "Diamonds",
+
+    value: 200,
+    description: "Shiny!"
+  },
+  {
+    id: 1,
+    name: "Wood",
+
+    value: 50,
+    description: "Bunch of wood"
+  }
+];
   
   //<========= BATTLE FUNCTIONS ===============>
   
@@ -336,7 +354,7 @@ var start = function() {
               
               money: enemies[enemyID].money,
               strength: enemies[enemyID].strength,
-              experience: enemies[enemyID].experience
+              experience: enemies[enemyID].experience,
           }
           
           //[ability buttons] -> gets the ability information;
@@ -402,7 +420,7 @@ var start = function() {
       //player Win
       
       var playerWin = function (money, experience) {
-          document.getElementById("game").innerHTML = "Congratulations you won! <br /> Gained money: " + money + "<br/>Gained experience: " + experience;
+          document.getElementById("game").innerHTML = "Congratulations you won! <br /> Gained money: " + money + "<br/>Gained experience: " + experience + "<br/>Gained loot: " ;
           document.getElementById("game").innerHTML += "<br /> <button style='padding: 2em;' onClick = 'battleWorld()'>Return</button>";
   
           player.money += money;
