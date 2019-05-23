@@ -123,7 +123,7 @@ var start = function() {
     checkPlayerAbilities();
   
   };
-  //<===== Enemies ======>
+  //<======== Enemies =========>
   
   enemies = [
     {
