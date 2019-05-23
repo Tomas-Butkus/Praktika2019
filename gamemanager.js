@@ -499,9 +499,7 @@ inventory = [{
     clearGameWindow();
   
     output("While walking towards people you see an old tavern called Golden Dragon and next to it a shop!");
-  
     add_output.innerHTML += "<br><br>UPDATE!";
-  
     add_output.innerHTML += ("<br><br> You unlocked the Shop!");
     }
   
@@ -534,7 +532,7 @@ inventory = [{
         console.log(player.abilities[x]);
           if(player.abilities[x] == undefined){
           shop.innerHTML += "   <button onclick='purchase("+x+")'style='padding: 0.3em; font-size: 80%; font-family: Monospace;'>" + abilities[x].name+"<br/> Damage: "+abilities[x].power+
-          "<br/>Cost: "+abilities[x].cost+ "</button>";
+          "<br/>Cost: " + abilities[x].cost+ "</button>";
           }
         
       }
