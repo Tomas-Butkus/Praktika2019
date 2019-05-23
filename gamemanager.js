@@ -693,11 +693,15 @@ inventory = [{
         player.level += 1;
         player.experience = 0;
         player.strength += 3
+        player.agility += 3
+        player.stamina += 3
     }
     else if(player.experience > 100)
     {
         player.level += 1;
         player.experience -= 100;
         player.strength += 3
+        player.agility += 3
+        player.stamina += 3
     }
   }
