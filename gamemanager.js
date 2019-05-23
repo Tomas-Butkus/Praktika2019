@@ -1,7 +1,7 @@
 var start = function() {
 
     output("GOLDEN DRAGON <br/><br/+>" +
-      "Things to be done~ <br>Explore ... 20%<br/>Shop ... 70%<br>Arena ... 20%<br>");
+      "Things to be done <br>Explore ... 20%<br/>Shop ... 70%<br>Arena ... 20%<br>");
   
     //prompts player for their name
     var getName = function() {
@@ -136,7 +136,7 @@ var start = function() {
       money: 10,
       strength: 1,
 
-      experience: 10,
+      experience: 20,
       
       speech: "Wraaa!"
     },
@@ -150,7 +150,7 @@ var start = function() {
       money: 20,
       strength: 10,
 
-      experience: 20,
+      experience: 30,
       
       speech: "It's really hot with this helmet on"
       
@@ -163,9 +163,9 @@ var start = function() {
       power: 8,
         
       money: 30,
-      strength: 20,
+      strength: 15,
 
-      experience: 30,
+      experience: 50,
       
       speech: "Fight me human!"
     },
@@ -177,9 +177,9 @@ var start = function() {
       power: 10,
         
       money: 50,
-      strength: 30,
+      strength: 20,
 
-      experience: 50,
+      experience: 70,
       
       speech: "You look as tasty as the previous human"
     },
@@ -191,7 +191,7 @@ var start = function() {
       power: 15,
 
       money: 1000,
-      strength: 40,
+      strength: 30,
 
       experience: 100,
 
@@ -420,7 +420,8 @@ var start = function() {
           document.getElementById("game").innerHTML += "<br/ ><button style ='padding: 1em;' onClick = 'battleWorld()'>Return</button>";
           
           player.inBattle =false;
-          console.log("You lost");
+          alert("You died! Better luck next time!");
+          location.reload();
       }
   
   }
@@ -495,12 +496,12 @@ var start = function() {
       //display money
       shop.innerHTML += "<div id ='shopMoney'>Money: "+player.money+"</div><br />";
       
-      
       //display each ability available
       for(var x in abilities){
         console.log(player.abilities[x]);
           if(player.abilities[x] == undefined){
-          shop.innerHTML += "   <button onclick='purchase("+x+")'style='padding: 0.3em; font-size: 80%; font-family: Monospace;'>"+abilities[x].name+"<br/> Damage: "+abilities[x].power+"<br/>Cost: "+abilities[x].cost+"</button>";
+          shop.innerHTML += "   <button onclick='purchase("+x+")'style='padding: 0.3em; font-size: 80%; font-family: Monospace;'>" + abilities[x].name+"<br/> Damage: "+abilities[x].power+
+          "<br/>Cost: "+abilities[x].cost+ "</button>";
           }
         
       }
@@ -571,7 +572,7 @@ var start = function() {
         
         healthDiv.innerHTML += "   <button style = 'font-family: monospace; padding: 0.2em;' onclick='buyHealth(50, 10)'>Heal: 50 Health<br />Cost: 10 Money</button>";
         
-        healthDiv.innerHTML += "   <button style = 'font-family: monospace; padding: 0.2em;' onclick='buyHealth(100, 30)'>Heal: 100 Health<br />Cost: 30 Money</button>";
+        healthDiv.innerHTML += "   <button style = 'font-family: monospace; padding: 0.2em;' onclick='buyHealth(100, 20)'>Heal: 100 Health<br />Cost: 20 Money</button>";
         
            if(player.health >= 100){
           document.getElementById('healShop').style.display = "none";
@@ -651,13 +652,19 @@ var start = function() {
   
   document.getElementById('game').style.overflow = 'hidden';
 
-  // <============ LEVEL UP =================>
+  // <================== LEVEL UP ====================>
 
   var levelUp = function(){
-    if(player.experience == 20)
+    if(player.experience == 100)
     {
         player.level += 1;
         player.experience = 0;
-        player.strength += 2
+        player.strength += 3
+    }
+    else if(player.experience > 100)
+    {
+        player.level += 1;
+        player.experience -= 100;
+        player.strength += 3
     }
   }
