@@ -38,7 +38,11 @@ var start = function() {
   
     health: 100,
   
-    strength: 3,
+    strength: 0,
+
+    agility: 0,
+
+    stamina: 0,
 
     level: 1,
 
@@ -54,7 +58,10 @@ var start = function() {
       }
     }
   };
-  
+  // <==================== RANDOM STATS ==========================>
+  player.strength = Math.floor(Math.random() * Math.floor(3));
+  player.stamina = Math.floor(Math.random() * Math.floor(3));
+  player.agility = Math.floor(Math.random() * Math.floor(3));
   //<==== PLAYER INFORMATION =====>
   
   //<===== Explore ======>
@@ -216,6 +223,12 @@ var start = function() {
     description: "Bunch of wood"
   }
 ];
+
+// <============= INVENTORY ===================>
+
+inventory = [{
+
+}];
   
   //<========= BATTLE FUNCTIONS ===============>
   
@@ -360,7 +373,7 @@ var start = function() {
           //[ability buttons] -> gets the ability information;
           updateBattleInformation = function(abilityID){
   
-              var playerDamage = abilityList[abilityID].power*(player.strength/10);
+              var playerDamage = abilityList[abilityID].power*((player.strength + player.agility + player.stamina)/10);
               var playerHealth = player.health;
               var max_health = currentEnemyInfo.max_health;
   
@@ -458,6 +471,8 @@ var start = function() {
     output(
       "Name: " + player.name + "<br/>" +
       "Strength: " + player.strength + "<br>" +
+      "Agility: " + player.agility + "<br>" +
+      "Stamina: " + player.stamina + "<br>" +
       "Level: " + player.level + "<br>" +
       "Experience: " + player.experience + "<br>" +
       "Money: " + player.money + "<br>" +
