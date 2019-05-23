@@ -24,8 +24,6 @@ var start = function() {
     document.getElementById("game").innerHTML = txt;
   };
   
-  add_output = document.getElementById("game");
-  
   //holds player locations visited
   var first_forest_visit = 0;
   var unlocked_battle = 0;
@@ -69,6 +67,7 @@ var start = function() {
     //clears the game screen upon visit
     var clearUponVisit = function() {
       output("");
+      add_output = document.getElementById("game");
     }
     clearUponVisit();
   
@@ -693,15 +692,11 @@ inventory = [{
         player.level += 1;
         player.experience = 0;
         player.strength += 3
-        player.agility += 3
-        player.stamina += 3
     }
     else if(player.experience > 100)
     {
         player.level += 1;
         player.experience -= 100;
         player.strength += 3
-        player.agility += 3
-        player.stamina += 3
     }
   }
