@@ -1,0 +1,23 @@
+{
+    "enemies":[{
+        "id": 0,
+        "name": "Enemy 1",
+        
+        "health": 50,
+        "power": 3,
+          
+        "money": 10,
+        "strength": 1
+    },
+    {
+        "id": 1,
+        "name": "Enemy 5",
+        
+        "health": 40,
+        "power": 4,
+          
+        "money": 20,
+        "strength": 2
+    }
+    ]
+    }
