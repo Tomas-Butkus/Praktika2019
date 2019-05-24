@@ -1,2 +1,13 @@
-# PraktikaNaujas
-<h1> Dafiga pakeista :D Dizainas jau nesikeis tai gali laisvai su css grazint xD
+Course Title: 1-oji programavimo praktika
+
+Fullname: Vardas, pavardė, grupė: Tomas Butkus, PI18B.
+
+Software used: Programinė įranga: Visual Studio Code.
+
+Document Structure Tree: Katalogų struktūra:
+
+PI18B.BUTKUS
+|
++-- Golden Dragon (Šiame kataloge rasite visų užduočių realizaciją.)
+|
++-- README.MD
