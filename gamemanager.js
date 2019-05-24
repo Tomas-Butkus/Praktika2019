@@ -59,8 +59,6 @@ randomValue.set([
     document.getElementById("game").innerHTML = txt;
   };
   
-  add_output = document.getElementById("game");
-  
   //holds player locations visited
   var first_forest_visit = 0;
   var unlocked_battle = 0;
@@ -104,7 +102,8 @@ randomValue.set([
 
     //clears the game screen upon visit
     var clearUponVisit = function() {
-      add_output.innerHTML = "";
+      output("");
+      add_output = document.getElementById("game");
     }
     clearUponVisit();
   
@@ -674,9 +673,7 @@ randomValue.set([
     clearGameWindow();
   
     output("While walking towards people you see an old tavern called Golden Dragon and next to it a shop!");
-  
     add_output.innerHTML += "<br><br>UPDATE!";
-  
     add_output.innerHTML += ("<br><br> You unlocked the Shop!");
     }
   
@@ -706,7 +703,7 @@ randomValue.set([
         console.log(player.abilities[x]);
           if(player.abilities[x] == undefined){
           shop.innerHTML += "   <button onclick='purchase("+x+")'style='padding: 0.3em; font-size: 80%; font-family: Monospace;'>" + abilities[x].name+"<br/> Damage: "+abilities[x].power+
-          "<br/>Cost: "+abilities[x].cost+ "</button>";
+          "<br/>Cost: " + abilities[x].cost+ "</button>";
           }
         
       }
