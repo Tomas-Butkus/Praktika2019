@@ -1,11 +1,46 @@
-var start = function() {
+let playerName;
 
-    output("GOLDEN DRAGON <br/><br/+>" +
-      "Things to be done <br>Explore ... 20%<br/>Shop ... 70%<br>Arena ... 20%<br>");
-  
+var start = function() {
+const h = require('hasard');
+
+const randomInteger = h.integer({type: 'poisson', lambda: 4});
+
+const randomString = h.string({
+    size: h.add(randomInteger, 5),
+    value: h.value('abcdefghijklmnopkrstuvw'.split(''))
+});
+
+const randomNumber = h.number([0, 100]);
+
+const randomKeys = h.array({
+    size: randomInteger,
+    value: randomString
+});
+
+// we first define it, to use it as reference into randomObject
+const randomValue = h.value();
+
+const randomObject = h.object(
+    randomKeys,
+    randomValue
+);
+
+// And we set recursivity by setting his values afterward
+randomValue.set([
+    randomString,
+    randomObject,
+    randomNumber,
+    randomInteger
+]);
+
+    output("GOLDEN DRAGON");
+
     //prompts player for their name
     var getName = function() {
       player.name = prompt("What's your name?");
+      playerName = player.name;
+
+      players.push(playerName);
     }
     getName();
   
@@ -38,7 +73,7 @@ var start = function() {
   
     health: 100,
   
-    strength: 0,
+    strength: 100,
 
     agility: 0,
 
@@ -59,13 +94,14 @@ var start = function() {
     }
   };
   // <==================== RANDOM STATS ==========================>
-  player.strength = Math.floor(Math.random() * Math.floor(3));
+  //player.strength = Math.floor(Math.random() * Math.floor(3) + 1);
   player.stamina = Math.floor(Math.random() * Math.floor(3));
   player.agility = Math.floor(Math.random() * Math.floor(3));
   //<==== PLAYER INFORMATION =====>
   
   //<===== Explore ======>
   var explore = function() {
+
     //clears the game screen upon visit
     var clearUponVisit = function() {
       add_output.innerHTML = "";
@@ -213,6 +249,7 @@ var start = function() {
     name: "Diamonds",
 
     value: 200,
+    quantity: 1,
     description: "Shiny!"
   },
   {
@@ -220,15 +257,116 @@ var start = function() {
     name: "Wood",
 
     value: 50,
+    quantity: 1,
     description: "Bunch of wood"
+  },
+  {
+    id: 2,
+    name: "Rock",
+
+    value: 1,
+    quantity: 1,
+    description: "A rock"
+  },
+  {
+    id: 3,
+    name: "Golden Crown",
+
+    value: 1000,
+    quantity: 1,
+    description: "A crown of a king!"
   }
 ];
 
+// <============= ACHIEVEMENTS ================>
+
+  achievements = [{
+    id: 0,
+    name: "Kill the goblin",
+    completed: false
+  },
+  {
+    id: 1,
+    name: "Kill the knight",
+    completed: false
+  },
+  {
+    id: 2,
+    name: "Kill the orc",
+    completed: false
+  },
+  {
+    id: 3,
+    name: "Kill the ogre",
+    completed: false
+  },
+  {
+    id: 4,
+    name: "Kill the dragon",
+    completed: false
+  },
+  {
+    id: 5,
+    name: "Use explore",
+    completed: false
+  },
+  {
+    id: 6,
+    name: "Use the store",
+    completed: false
+  },
+  {
+    id: 7,
+    name: "Buy a weapon",
+    completed: false
+  },
+  {
+    id: 8,
+    name: "Sell items",
+    completed: false
+  },
+  {
+    id: 9,
+    name: "Use the battle mode",
+    completed: false
+  }, 
+  {
+    id: 10,
+    name: "Check your stats",
+    completed: false
+  },
+  {
+    id: 11,
+    name: "Enter your name",
+    completed: false
+  },
+  {
+    id: 12,
+    name: "Buy all weapons",
+    completed: false
+  },
+  {
+    id: 13,
+    name: "Fight all of the opponents",
+    completed: false
+  },
+  {
+    id: 14,
+    name: "Heal at the shop",
+    completed: false
+  },
+  {
+    id: 15,
+    name: "Level up",
+    completed: false
+  }
+  ];
+
 // <============= INVENTORY ===================>
+    inventory = [{
 
-inventory = [{
-
-}];
+    }];
+    inventory.length = 0;
   
   //<========= BATTLE FUNCTIONS ===============>
   
@@ -255,6 +393,12 @@ inventory = [{
               gameScreen.innerHTML += "<br /> <div id='opponentList'></div>"
           };
           displaySelectScreen();
+
+         
+        };
+
+          
+          }
           
           //generates opponent buttons and [inBattle] function
           var generateOpponents = function () {
@@ -263,7 +407,7 @@ inventory = [{
               for(var i = 0; i<enemies.length; i++){
                   opponentDiv.innerHTML += "<br /><br /><button style ='padding: 0.5em; 'onClick = 'inBattle("+enemies[i].id+")' class = 'enemyButtons'>"+enemies[i].name+"<br /> Level: "+enemies[i].health/10+"</button>";
               }
-          };
+          }
           generateOpponents();
           
           inBattle = function (enemyID) {
@@ -275,7 +419,7 @@ inventory = [{
           }
       
           
-      };
+      
       
       //USER IN BATTLE
       userInBattle = function(enemyID){
@@ -361,6 +505,7 @@ inventory = [{
           }
           
           currentEnemyInfo = {
+              id: enemies[enemyID].id,
               health: enemies[enemyID].health,
               max_health: enemies[enemyID].health,
               power: enemies[enemyID].strength,
@@ -390,6 +535,8 @@ inventory = [{
               //if ENEMY or PLAYER hit 0 health
               if(enemyHealth <= 0){
                   playerWin(currentEnemyInfo.money, currentEnemyInfo.experience);
+                  var randomLoot = Math.floor(Math.random() * Math.floor(3));
+                  inventory.push(loot[randomLoot]);
               } 
               else if (playerHealth <= 0){
                   player.health = 0;
@@ -419,10 +566,6 @@ inventory = [{
               }
               }
               //<------ PLAYER HEALTH BAR UPDATES -------->
-              
-              
-              
-              
   
   
           }
@@ -433,14 +576,40 @@ inventory = [{
       //player Win
       
       var playerWin = function (money, experience) {
-          document.getElementById("game").innerHTML = "Congratulations you won! <br /> Gained money: " + money + "<br/>Gained experience: " + experience + "<br/>Gained loot: " ;
+          document.getElementById("game").innerHTML = "Congratulations you won! <br /> Gained money: " + money + "<br/>Gained experience: " + experience +"<br/>";
           document.getElementById("game").innerHTML += "<br /> <button style='padding: 2em;' onClick = 'battleWorld()'>Return</button>";
   
           player.money += money;
           player.experience += experience;
+
+          // KILLING ACHIEVEMENTS
+          if(currentEnemyInfo.id === 0)
+          {
+            achievements[0].completed = true;
+          }
+          else if(currentEnemyInfo.id === 1)
+          {
+            achievements[1].completed = true;
+          }
+          else if(currentEnemyInfo.id === 2)
+          {
+            achievements[2].completed = true;
+          }
+          else if(currentEnemyInfo.id === 3)
+          {
+            achievements[3].completed = true;
+          }
+          else if(currentEnemyInfo.id === 4)
+          {
+            inventory.push(loot[3]);
+            alert("You earned a Golden Crown!");
+            // DRAGON ACHIEVEMENT
+            achievements[4].completed = true;
+          }
           
           player.inBattle = false;
           levelUp();
+          pasiekimai();
       };
       
       //player Lost
@@ -455,7 +624,7 @@ inventory = [{
           location.reload();
       }
   
-  }
+  
   
   //<========= BATTLE FUNCTIONS ===============>
   
@@ -468,6 +637,11 @@ inventory = [{
       hold.push(" " + player.abilities[i].name)
     };
   
+    var hold2 = [];
+    for (var i = 0; i < inventory.length; i++) {
+      hold2.unshift(" " + inventory[i].name)
+    };
+
     output(
       "Name: " + player.name + "<br/>" +
       "Strength: " + player.strength + "<br>" +
@@ -477,7 +651,8 @@ inventory = [{
       "Experience: " + player.experience + "<br>" +
       "Money: " + player.money + "<br>" +
       "Health: " + player.health + "<br />"+
-      "Weapons: " + hold
+      "Weapons: " + hold + "<br />"+
+      "Inventory: " + hold2 + "<br />"
     );
   };
   
@@ -514,9 +689,6 @@ inventory = [{
     if(player.location != "theShop"){
       player.location = 'theShop';
     }
-    
-    //if player location is set to 'shopWorld'  
-    console.log(player.location);
     
     var shop = document.getElementById("game");
     var clearShop = function () {shop.innerHTML = "";}
@@ -594,7 +766,24 @@ inventory = [{
         
         
       }
+
+      // SELLING INVENTORY
       
+      var sellInventory = function (){
+        var inventoryLenght = inventory.length;
+        game.innerHTML += "<div id = 'sellInventory'><br/>Inventory items: " + inventoryLenght + "</div>";
+        game.innerHTML += "<br /><div id = 'inventoryShop'></div>";
+        var inventoryDiv = document.getElementById('inventoryShop');
+        inventoryDiv.innerHTML += "<button style = 'font-family: monospace; padding: 0.2em;' onclick='sellItems()'>Sell Items</button>";
+      }
+
+      // SELLS ALL ITEMS
+      sellItems = function (){
+        inventory.length = 0;
+        achievements[8].completed = true;
+        alert("You sold your items!");
+      }
+
       //creates health Div and everything health display goes here
       var displayHealthShop = function () {
         game.innerHTML += "<div id = 'healthUpdate'>Health: " + player.health + "</div>";
@@ -613,6 +802,7 @@ inventory = [{
         
       }
       displayHealthShop();
+      sellInventory();
       
       
       
@@ -630,7 +820,6 @@ inventory = [{
         
         player.health += health;
         player.money -= cost;
-        
         
         document.getElementById('allGood').innerHTML = "Health +" + health;
         document.getElementById('healthUpdate').innerHTML = "Health: " + player.health;
@@ -672,7 +861,7 @@ inventory = [{
       };
     }
   };
-  
+
   abilityList = [
   //(ID, name, type, power, stamina_cost, cost, text)
   new Ability(0, "Stick", "weapon", 10, 3, 15, "Wooden stick"),
@@ -683,21 +872,40 @@ inventory = [{
   ];
   // <================== ABILITIES ==================>
   
-  document.getElementById('game').style.overflow = 'hidden';
+ 
 
   // <================== LEVEL UP ====================>
 
   var levelUp = function(){
+    achievements[15].completed = true;
     if(player.experience == 100)
     {
         player.level += 1;
         player.experience = 0;
         player.strength += 3
+        player.agility += 3
+        player.stamina += 3
     }
     else if(player.experience > 100)
     {
         player.level += 1;
         player.experience -= 100;
         player.strength += 3
+        player.agility += 3
+        player.stamina += 3
     }
+  }
+
+// <=============== ACHIEVEMENTS ===================>
+
+  var pasiekimai = function(){
+    for(var i = 0; i < achievements.length; i++)
+    {
+      if (achievements[i].completed === true)
+      {
+        let achievement = document.getElementById("game");
+        achievement.innerHTML = "COMPLETED ACHIEVEMENTS:<li>"+ achievements[i].name + "</li>";
+      }
+    }
+
   }
