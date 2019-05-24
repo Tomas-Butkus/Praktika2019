@@ -1,0 +1,41 @@
+#viskas {
+border: 5px solid #000000;
+margin: 70px 200px auto 200px;
+padding: 15px;
+text-align: center;
+}
+
+#exploreButton {
+color: #fff !important;
+text-transform: uppercase;
+background: #000000;
+padding: 10px;
+border-radius: 5px;
+display: inline-block;
+border: none;
+}
+
+#shopButton {
+color: #fff !important;
+text-transform: uppercase;
+background: #000000;
+padding: 10px;
+border-radius: 5px;
+display: inline-block;
+border: none;
+}
+
+#battleButton {
+color: #fff !important;
+text-transform: uppercase;
+background: #000000;
+padding: 10px;
+border-radius: 5px;
+display: inline-block;
+border: none;
+
+}
+
+h1 {
+	text-transform: uppercase;
+}
