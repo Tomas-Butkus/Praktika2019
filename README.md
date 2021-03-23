@@ -6,6 +6,8 @@ Software used: Programinė įranga: Visual Studio Code.
 
 Document Structure Tree: Katalogų struktūra:
 
+Tekstinis RPG žanro žaidimas.
+
 PI18B.BUTKUS
 |
 +-- Golden Dragon (Šiame kataloge rasite visų užduočių realizaciją.)
